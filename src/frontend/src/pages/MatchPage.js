@@ -1,7 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MatchDetailCard } from '../components/MatchDetailCard';
+import { YearSelector } from '../components/YearSelector';
 
+import './MatchPage.scss';
 
 export const MatchPage = () => {
 
@@ -19,18 +21,23 @@ export const MatchPage = () => {
       };
       fetchMatches();
 
-    }, [] //Specifying DependencyList as an empty array to tell Calling useEffect on the first page load
+    }, [teamName, year] //Specifying DependencyList as teamName, year in array to tell Calling useEffect on the teamName or year change
   );
 
 
   //JSX allows us to write HTML elements in JavaScript and place them in the DOM without any createElement() and/or appendChild() methods. JSX converts HTML tags into react elements. We are not required to use JSX, but JSX makes it easier to write React applications.
   return (
-    <div className="TeamPage">
-      <h1>Match Page</h1>
-      {
-        matches.map(match => <MatchDetailCard teamName={teamName} match={match}></MatchDetailCard>)
-      }
-
+    <div className="MatchPage">
+      <div className="year-selector">
+        <h3>Select Year</h3>
+        <YearSelector teamName={teamName}></YearSelector>
+      </div>
+      <div>
+        <h1 className="page-heading">{teamName} Matches in {year}</h1>
+        {
+          matches.map(match => <MatchDetailCard teamName={teamName} match={match}></MatchDetailCard>)
+        }
+      </div>
     </div>
   );
 }
