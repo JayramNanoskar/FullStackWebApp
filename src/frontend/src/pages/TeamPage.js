@@ -16,7 +16,7 @@ export const TeamPage = () => {
   useEffect( //Using React Effects to do something when this component load
     () => {
       const fetchTeam = async () => {
-        const response = await fetch(`http://localhost:8080/team/${teamName}`); //Need to make await because fetch returns promise & for using await that current function must be async
+        const response = await fetch(`${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}`); //Need to make await because fetch returns promise & for using await that current function must be async
         const data = await response.json(); //getting actual response
         setTeam(data); //Setting available data to component state
 
@@ -50,7 +50,7 @@ export const TeamPage = () => {
         <h3>Latest Matches</h3>
         <MatchDetailCard teamName={team.teamName} match={team.matches[0]}></MatchDetailCard>
       </div>
-      {team.matches.slice(1).map(match => <MatchSmallCard teamName={team.teamName} match={match}></MatchSmallCard>)}
+      {team.matches.slice(1).map(match => <MatchSmallCard key={match.id} teamName={team.teamName} match={match}></MatchSmallCard>)}
       <div className="more-link">
         <Link to={`/teams/${teamName}/matches/${process.env.REACT_APP_DATA_END_YEAR}`}>More ></Link>
       </div>

@@ -12,7 +12,7 @@ export const HomePage = () => {
     useEffect( //Using React Effects to do something when this component load
         () => {
             const fetchAllTeams = async () => {
-                const response = await fetch(`http://localhost:8080/team`); //Need to make await because fetch returns promise & for using await that current function must be async
+                const response = await fetch(`${process.env.REACT_APP_API_ROOT_URL}/team`); //Need to make await because fetch returns promise & for using await that current function must be async
                 const data = await response.json(); //getting actual response
                 setTeams(data); //Setting available data to component state
 
@@ -32,7 +32,7 @@ export const HomePage = () => {
                 <h1 className="app-name">JSN IPL Dashboard</h1>
             </div>
             <div className="team-grid">
-                    {teams.map(team => <TeamTile teamName={team.teamName}></TeamTile>)}
+                    {teams.map(team => <TeamTile key={team.id} teamName={team.teamName}></TeamTile>)}
 
             </div>
 
