@@ -15,13 +15,13 @@ export const TeamPage = () => {
 
   useEffect( //Using React Effects to do something when this component load
     () => {
-      const fetchMatches = async () => {
+      const fetchTeam = async () => {
         const response = await fetch(`http://localhost:8080/team/${teamName}`); //Need to make await because fetch returns promise & for using await that current function must be async
         const data = await response.json(); //getting actual response
         setTeam(data); //Setting available data to component state
 
       };
-      fetchMatches();
+      fetchTeam();
 
     }, [teamName] //Specifying DependencyList as an teamName in array to tell Calling useEffect on the teamName change
   );
